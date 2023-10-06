@@ -1,9 +1,43 @@
 .App {
-  text-align: center;
-  background-color: lightgrey;
+
+  
   color: black;
   font-family:"Montserrat" ;
 }
 .Bienvenida {
+  background-color: #B9451C;
+}
+
+/* Estilos generales para la lista */
+.mi-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 100% de la altura de la ventana */
+}
+
+/* Estilos para los elementos de la lista */
+.mi-lista li {
+  flex: 1;
+  width: 7rem;
+  max-height: 40px;
+  border-radius: 30px;
   background-color: orange;
+  border: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.mi-lista li:hover { 
+  background-color: #F15A24;
+}
+
+/* Estilos responsive para los elementos de la lista */
+@media (max-width: 768px) {
+  .mi-lista li {
+    font-size: 14px; /* Cambiar el tamaño de fuente en pantallas más pequeñas */
+  }
 }

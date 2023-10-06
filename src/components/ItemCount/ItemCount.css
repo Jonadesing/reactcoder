@@ -1,0 +1,29 @@
+.Counter {
+    text-align: center;
+  }
+  
+  .Controls {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .Button {
+    background-color: orange;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    border: none;
+    border-radius: 35px; 
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Number {
+    margin: 0 15px; 
+  }
+  
+  .Button:hover {
+    background-color: darkorange;
+  }
+  

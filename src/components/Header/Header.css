@@ -1,0 +1,44 @@
+.header {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: space-between; /* Espacio uniformemente los elementos en el header */
+    background-color: #000000; /* Cambia el color de fondo según tus preferencias */
+    padding: 10px 20px; /* Añade espacio interno al header */
+    color: white;
+    
+}
+h2{
+    font-size: 4rem;
+    font-family: 'Montserrat';
+}
+
+.header-left {
+    flex: 1; /* Espacio vacío en la izquierda ocupando todo el espacio disponible */
+}
+
+.header-center {
+    flex: 2; /* Centro del header, ocupando más espacio que el espacio vacío */
+    text-align: center;
+}  
+
+.header-right {
+    flex: 1; /* Espacio para el logo en la derecha */
+    display: flex;
+    justify-content: flex-end; /* Centra horizontalmente el contenido de la derecha */
+}
+  
+.circle-logo {
+    width: 90px;
+    height: 90px;
+    background-color:white; /* Color de fondo circular (naranja en este ejemplo) */
+    border-radius: 50%; /* Borde circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circle-logo img {
+    max-width: 100%;
+    max-height: 100%;
+}
+  
