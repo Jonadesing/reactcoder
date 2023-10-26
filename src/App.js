@@ -15,6 +15,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
+import ItemDetailContainer from './components/ItemDetailContainer';
 import ItemCount from './components/ItemCount/ItemCount';
 
 const navArrayLinks = [
@@ -50,6 +51,7 @@ function App() {
         </Routes>
       </Container>
         <ItemListContainer greeting={"Bienvenidos"}/>
+        <ItemDetailContainer/>
       <ItemCount initial={1} stock={10} onAdd={(quantity) => console.log('Cantidad agregada ', quantity)}/>
     
     </div>
