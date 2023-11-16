@@ -11,6 +11,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import { CartProvider } from './Context/CartContext/CartContext';
+import Checkout from './components/Checkout/Chekout'; 
 import Cart from './components/Cart/Cart'
 
 
@@ -50,6 +51,8 @@ function App() {
               <Route path="/category/:categoryId" element={<ItemListContainer greeting={'Productos por categoria'} />} />
               <Route path="/item/:itemId" element={<ItemDetailContainer />} />
               <Route path="/Carrito" element={<Cart/>} />
+              <Route path="/Productos" element={<ItemListContainer greeting={'Productos'} />} />
+              <Route path="/checkout" element={<Checkout />} />
               <Route path="*" element={<h1>404 NOT FOUND</h1>} />
             </Routes>
         </Container>

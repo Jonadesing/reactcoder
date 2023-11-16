@@ -13,9 +13,9 @@ const ItemDetailContainer = () => {
 
     useEffect(() => {
         setLoading(true);
-
+    
         const docRef = doc(db, 'products', itemId);
-
+    
         getDoc(docRef)
             .then(response => {
                 const data = response.data();
@@ -29,8 +29,9 @@ const ItemDetailContainer = () => {
                 setLoading(false);
             });
     }, [itemId]);
-
-    console.log(product);
+    
+    console.log(loading);
+    
 
     return (
         <div className='ItemDetailContainer'>
