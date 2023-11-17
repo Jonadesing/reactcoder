@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { CartContext } from '../../Context/CartContext/CartContext';
 import { db } from '../../Service/firebase/firebasConfig';
+import './Checkout.css';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const Checkout = () => {
   const { cart, totalQuantity, total, clearCart } = useContext(CartContext);
-
   const [formData, setFormData] = useState({
     name: '',
     address: '',
@@ -24,8 +26,7 @@ const Checkout = () => {
     e.preventDefault();
 
     try {
-      // Enviar la información al servidor
-      const response = await fetch('URL_DE_TU_API', {
+      const response = await fetch('products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,20 +35,20 @@ const Checkout = () => {
       });
 
       if (response.ok) {
-        // Enviar los datos a Firestore después de procesar el pago
         await db.collection('pedidos').add({
           productos: cart,
           totalQuantity,
           total,
           informacionEnvio: formData,
-          // Otros datos que desees almacenar
         });
 
-        console.log('Pedido procesado con éxito');
-        // Puedes realizar acciones adicionales después de procesar el pedido
-
-        // Limpia el carrito después de procesar el pedido
-        clearCart();
+        Swal.fire({
+          icon: 'success',
+          title: '¡Pedido exitoso!',
+          text: 'Gracias por tu compra.',
+        }).then(() => {
+          clearCart();
+        });
       } else {
         console.error('Error al procesar el pedido');
       }
@@ -57,13 +58,13 @@ const Checkout = () => {
   };
 
   return (
-    <div>
+    <div className="checkout-container">
       <h2>Checkout</h2>
-      {cart.map((producto) => (
-        <div key={producto.id}>
-          <p>{producto.nombre}</p>
-          <p>Cantidad: {producto.cantidad}</p>
-          <p>Precio: ${producto.precio}</p>
+      {cart.map((products) => (
+        <div key={products.id} className="checkout-producto">
+          <p>{products.name}</p>
+          <p>Cantidad: {products.quantity}</p>
+          <p>Precio: ${products.price}</p>
         </div>
       ))}
       <h3>Cantidad Total: {totalQuantity}</h3>
@@ -86,6 +87,7 @@ const Checkout = () => {
         <input type="text" id="cvv" name="cvv" value={formData.cvv} onChange={handleInputChange} required />
 
         <button type="submit">Realizar Pedido</button>
+        <Link to="/">Ir al Home</Link>
       </form>
     </div>
   );

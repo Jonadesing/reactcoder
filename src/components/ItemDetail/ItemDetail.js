@@ -1,82 +1,40 @@
-import React, { useContext, useState, useEffect } from 'react';
-import './ItemDetail.css';
+import React, { useContext, useState } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
-import { Link } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext/CartContext';
-import { db } from '../../Service/firebase/firebasConfig';
+import { Link } from 'react-router-dom';
+import './ItemDetail.css';
 
-const ItemDetail = ({ id, name, price, img, category, description, stock }) => {
-  const [product, setProduct] = useState(null);
-  const [quantityAdded, setQuantityAdded] = useState(0);
+const ItemDetail = ({ item }) => {
+    const { addItem } = useContext(CartContext);
+    const [redirect, setRedirect] = useState(false);
 
-  const { addItem } = useContext(CartContext);
-
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const productRef = db.collection('products').doc(id);
-        const doc = await productRef.get();
-
-        if (doc.exists) {
-          setProduct(doc.data());
-        } else {
-          console.log('No existe el producto con ID:', id);
-        }
-      } catch (error) {
-        console.error('Error al obtener el producto:', error);
-      }
+    const handleToCart = (cantidad) => {
+        addItem(item, cantidad);
+        setRedirect(true);
     };
 
-    getProduct();
-  }, [id]);
-
-  const handleOnAdded = (quantity) => {
-    setQuantityAdded(quantity);
-
-    const item = {
-      id, name, price, img, category, description, stock,
-    };
-    addItem(item, quantity);
-  };
-
-  if (!product) {
-    console.log('Cargando producto...');
-    return <p>Cargando...</p>;
-  }
-
-  console.log('Producto cargado:', product);
-
-  return (
-    <article className="CardItem">
-      <header className="Header">
-        <h2 className="ItemHeader">{product.name}</h2>
-      </header>
-      <picture>
-        <img src={product.img} alt={product.name} className="ItemImg" />
-      </picture>
-      <section>
-        <p className='Info'>
-          Categoría: {product.category}
-        </p>
-        <p className='Info'>
-          Descripción: {product.description}
-        </p>
-        <p className='info'>
-          Precio: ${product.price}
-        </p>
-        <p className='info'>
-          Stock: {product.stock}
-        </p>
-      </section>
-      <footer className='ItemFooter'>
-        {quantityAdded > 0 ? (
-          <Link to='/cart' className='Option'>Terminar compra</Link>
-        ) : (
-          <ItemCount initial={1} stock={product.stock} onAdd={(handleOnAdded)} />
-        )}
-      </footer>
-    </article>
-  );
+    return (
+        <div className='container'>
+            <div className='producto-detalle'>
+                <img src={item.img} alt={item.name} />
+                <div>
+                    <h4>{item.name}</h4>
+                    <p>Precio: ${item.price}</p>
+                    <p>Categoría: {item.category}</p>
+                    <p>Descripción: {item.description}</p>
+                    <ItemCount stock={item.stock} onAdd={handleToCart} />
+                    <div className="buttons">
+                    <Link to="/Productos">
+                            <button className={`button ${redirect ? 'hidden' : ''}`}>Seguir Comprando</button>
+                        </Link>
+                        <Link to="/Carrito">
+                            <button className={`button ${!redirect ? 'hidden' : ''}`}>Ir al carrito</button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default ItemDetail;
